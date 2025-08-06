@@ -2,6 +2,11 @@ import { test } from '../fixtures/sign-up-fixtures';
 import { expectSuccessfulRegistration, expectRegistrationError } from '../helpers/auth-test-helpers';
 import { faker } from '@faker-js/faker';
 
+test.only('Print BASE_URL', async ({ page }) => {
+  console.log('BASE_URL from context:', process.env.BASE_URL);
+  console.log('[CI DEBUG] BASE_URL =', process.env.BASE_URL);
+});
+
 test.describe('[CHECKLY-1] Successful registration with valid data', () => {
     test('Regular valid data', async ({ api, validUser }) => {
         await expectSuccessfulRegistration(api, validUser.email, validUser.name, validUser.password);
