@@ -2,7 +2,7 @@ import { test, expect } from '../fixtures/base-fixtures';
 
 test.describe("Landing Page", () => {
 
-  test.beforeEach("Navigate to the landing page", async ({ page }) => {
+  test.beforeEach("Navigate to landing page", async ({ page }) => {
     await page.goto('/');
   });
 
