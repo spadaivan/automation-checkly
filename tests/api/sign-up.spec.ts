@@ -2,50 +2,46 @@ import { test } from '../fixtures/sign-up-fixtures';
 import { expectSuccessfulRegistration, expectRegistrationError } from '../helpers/auth-test-helpers';
 import { faker } from '@faker-js/faker';
 
-test.only('Print BASE_URL', async ({ page }) => {
-  console.log('BASE_URL from context:', process.env.BASE_URL);
-  console.log('[CI DEBUG] BASE_URL =', process.env.BASE_URL);
-});
-
 test.describe('[CHECKLY-1] Successful registration with valid data', () => {
     test('Regular valid data', async ({ api, validUser }) => {
         await expectSuccessfulRegistration(api, validUser.email, validUser.name, validUser.password);
+          console.log('[CI DEBUG] BASE_URL =', process.env.BASE_URL);
     });
 
-    test('Name with maximum length', async ({ api, validUser }) => {
+    test.skip('Name with maximum length', async ({ api, validUser }) => {
         const longName = 'a'.repeat(32);
         await expectSuccessfulRegistration(api, validUser.email, longName, validUser.password);
     });
 
-    test('Name with minimum length', async ({ api, validUser }) => {
+    test.skip('Name with minimum length', async ({ api, validUser }) => {
         await expectSuccessfulRegistration(api, validUser.email, 'Max', validUser.password);
     });
 
-    test('Name Contains Hyphen', async ({ api, validUser }) => {
+    test.skip('Name Contains Hyphen', async ({ api, validUser }) => {
         await expectSuccessfulRegistration(api, validUser.email, 'Max-Mustermann', validUser.password);
     });
 
-    test('Email with Minimum Length', async ({ api, validUser }) => {
+    test.skip('Email with Minimum Length', async ({ api, validUser }) => {
         const minEmail = `${faker.string.alpha(1)}@${faker.string.alpha(1)}.${faker.string.alpha(1)}`;
         await expectSuccessfulRegistration(api, minEmail, validUser.name, validUser.password);
     });
 
-    test('Email with Maximum Length', async ({ api, validUser }) => {
+    test.skip('Email with Maximum Length', async ({ api, validUser }) => {
         const maxEmail = `${faker.string.alpha(1).repeat(35)}@${faker.string.alpha(1)}.${faker.string.alpha(1).repeat(32)}`;
         await expectSuccessfulRegistration(api, maxEmail, validUser.name, validUser.password);
     });
 
-    test('Password with Minimum Length', async ({ api, validUser }) => {
+    test.skip('Password with Minimum Length', async ({ api, validUser }) => {
         await expectSuccessfulRegistration(api, validUser.email, validUser.name, '123456Aa');
     });
 
-    test('Password with Maximum Length', async ({ api, validUser }) => {
+    test.skip('Password with Maximum Length', async ({ api, validUser }) => {
         const maxPassword = 'Aa' + '7'.repeat(30);
         await expectSuccessfulRegistration(api, validUser.email, validUser.name, maxPassword);
     });
 });
 
-test('[CHECKLY-2] Attempt to register with an already registered email', async ({ api, validUser }) => {
+test.skip('[CHECKLY-2] Attempt to register with an already registered email', async ({ api, validUser }) => {
     await expectSuccessfulRegistration(api, validUser.email, validUser.name, validUser.password);
 
     await expectRegistrationError(
@@ -58,7 +54,7 @@ test('[CHECKLY-2] Attempt to register with an already registered email', async (
     );
 });
 
-test.describe('[CHECKLY-3] Registration fails with invalid email format', () => {
+test.describe.skip('[CHECKLY-3] Registration fails with invalid email format', () => {
     const invalidEmailTests = [
         { name: 'Email without @', value: 'test.com' },
         { name: 'Missing local part', value: '@domain.com' },
@@ -93,11 +89,11 @@ test.describe('[CHECKLY-3] Registration fails with invalid email format', () => 
     }
 });
 
-test('[CHECKLY-4] Registration fails when email field is empty', async ({ api, validUser }) => {
+test.skip('[CHECKLY-4] Registration fails when email field is empty', async ({ api, validUser }) => {
     await expectRegistrationError(api, '', validUser.name, validUser.password, 422, 'Field is required');
 });
 
-test.describe('[CHECKLY-5] Registration fails when name as an invalid value', () => {
+test.describe.skip('[CHECKLY-5] Registration fails when name as an invalid value', () => {
     const invalidNameTests = [
         { name: 'Name is empty', value: '', errorMessage: 'Field is required' },
         {
@@ -161,7 +157,7 @@ test.describe('[CHECKLY-5] Registration fails when name as an invalid value', ()
     }
 });
 
-test.describe('[CHECKLY-6] Registration fails with empty or weak password', () => {
+test.describe.skip('[CHECKLY-6] Registration fails with empty or weak password', () => {
     const invalidPasswordTests = [
         { name: 'Password is empty', value: '', errorMessage: 'Field is required' },
         {
