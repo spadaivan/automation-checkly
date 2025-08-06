@@ -34,6 +34,22 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+     {
+      name: 'api',
+      testMatch: ['tests/api/**/*.spec.ts'],
+      use: {
+        baseURL: process.env.BASE_URL || 'http://checkly.eu-north-1.elasticbeanstalk.com/api/v1/',
+      },
+    },
+    {
+      name: 'ui',
+      testMatch: ['tests/ui/**/*.spec.ts'],
+      use: {
+        baseURL: process.env.UI_BASE_URL || 'http://checkly.eu-north-1.elasticbeanstalk.com',
+        trace: 'on-first-retry',
+        // ...devices['Desktop Chrome'], 
+      },
+    },
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
