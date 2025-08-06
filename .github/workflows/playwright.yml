@@ -25,3 +25,7 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
+
+env:
+  BASE_URL: http://checkly.eu-north-1.elasticbeanstalk.com/api/v1
+  UI_BASE_URL: http://checkly.eu-north-1.elasticbeanstalk.com
