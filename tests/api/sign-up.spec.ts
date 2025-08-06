@@ -4,8 +4,9 @@ import { faker } from '@faker-js/faker';
 
 test.describe('[CHECKLY-1] Successful registration with valid data', () => {
     test('Regular valid data', async ({ api, validUser }) => {
+        console.log('[CI DEBUG] BASE_URL =', process.env.BASE_URL);
         await expectSuccessfulRegistration(api, validUser.email, validUser.name, validUser.password);
-          console.log('[CI DEBUG] BASE_URL =', process.env.BASE_URL);
+        
     });
 
     test.skip('Name with maximum length', async ({ api, validUser }) => {
